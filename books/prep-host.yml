@@ -1,0 +1,38 @@
+---
+- name: 'prep host for automation'
+  hosts: 'virtualizer'
+  vars:
+      packages:
+          - 'python-pip'
+          - 'python-dev'
+          - 'build-essential'
+
+  tasks:
+   - name: 'Install python-apt so native apt plugins work'
+     package:
+         name: 'python-apt'
+         state: 'present'
+   - name: 'switch to community repos'
+     apt_repository:
+       repo: 'deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise'
+       state: 'absent'
+     apt_repository:
+       repo: 'deb http://download.proxmox.com/debian/pve stretch pve-no-subscription'
+       state: 'present'
+   - name: 'Update all packages to the latest version'
+     apt:
+       upgrade: 'dist'
+   - name: 'Install pip packages'
+     apt:
+       name: "{{ packages }}"
+   - name: 'pip update pip'
+     pip:
+       name: 'pip'
+       state: 'latest'
+   - name: 'Install dependencies'
+     pip:
+       name: 'virtualenv'
+       state: 'latest'
+     pip:
+       name: 'proxmoxer'
+       state: 'latest'

@@ -1,0 +1,10 @@
+#---
+#- hosts: host
+#  remote_user: root
+#
+#  tasks:
+#   - name: List all running containers
+#     command:
+#     register: hosts_update
+#   - debug:
+#       var: hosts_update.stdout_lines
