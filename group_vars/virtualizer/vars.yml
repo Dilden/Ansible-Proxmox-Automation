@@ -4,7 +4,6 @@ api_user: 'root@pam'
 api_password: '{{ vault_api_password }}'
 api_host: 'localhost'
 defaults:
-  balloon: '1024'
   cores: '1'
   cpu: '1'
   memory:

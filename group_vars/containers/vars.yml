@@ -1,2 +1,4 @@
 ---
 # container variables
+100_password: '{{ vault_100 }}'
+101_password: '{{ vault_101 }}'

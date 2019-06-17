@@ -27,7 +27,7 @@
       memory: '{{ item.value.memory | default(defaults.memory.ct) }}'
       swap: '{{ item.value.swap | default([]) }}'
       disk: '{{ item.value.disk | default(defaults.disk) }}'
-      mounts: '{{ item.value.mounts | default([]) }}'
+      #mounts: '{{ item.value.mounts | default([]) }}'
       netif: '{{ item.value.netif | default([]) }}'
       storage: '{{ item.value.storage | default(defaults.storage.ct) }}'
       onboot: '{{ item.value.onboot | default(defaults.onboot) }}'

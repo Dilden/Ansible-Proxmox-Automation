@@ -17,8 +17,8 @@
 closingtags.com
 
 [containers]
-192.168.1.67
-192.168.1.68
+plex ansible_host=192.168.1.67 ansible_ssh_password=100_password
+closingtags ansible_host=192.168.1.68 ansible_ssh_password=101_password
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
