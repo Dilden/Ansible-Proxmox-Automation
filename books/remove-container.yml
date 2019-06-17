@@ -1,0 +1,28 @@
+---
+- name: 'stop and remove container'
+  hosts: 'virtualizer'
+
+  handlers:
+  - name: 'sleep'
+    pause:
+      seconds: 5
+
+  tasks:
+  - name: 'stop the container'
+    proxmox:
+      vmid: '104'
+      api_user: 'root@pam'
+      api_password: '{{ vault_api_password }}'
+      api_host: 'localhost'
+      state: stopped
+    notify:
+      - 'sleep'
+
+
+  - name: 'remove the container'
+    proxmox:
+      vmid: '104'
+      api_user: 'root@pam'
+      api_password: '{{ vault_api_password }}'
+      api_host: 'localhost'
+      state: absent
