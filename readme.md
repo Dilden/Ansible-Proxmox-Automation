@@ -18,3 +18,10 @@ vault_api_password: 'PROXMOX_HOST_PASSWORD'
 From there, containers are configured within group_vars/virtualizer/vars.yml
 
 After setting up everything, run the prep-host.yml playbook to ensure proxmoxer and other various dependencies are installed on the host.
+
+## Usage
+Since I keep forgetting how to run these update commands, I figured I should document them here.
+
+`ansible-playbook books/update-host-all.yml --ask-vault-pass -u root` will run the playbook that updates the host/virtualizer
+
+`ansible-playbook books/update-containers.yml --ask-vault-pass -u root` will update all containers
