@@ -20,7 +20,7 @@ From there, containers are configured within group_vars/virtualizer/vars.yml
 After setting up everything, run the prep-host.yml playbook to ensure proxmoxer and other various dependencies are installed on the host.
 
 ## Usage
-* Note: All commands will need to be run with `--ask-vault-pass -u root` appended to them to work with this config.
+* Note: All commands will need to be run with `--ask-vault-pass` appended to them to work with this config. They no longer need to have `-u root` specified as that variable has been specified in the hosts.
 
 Since I keep forgetting how to run these update commands, I figured I should document them here.
 
