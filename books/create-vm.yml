@@ -1,0 +1,13 @@
+---
+- hosts: virtualizer
+
+  tasks:
+  - name: echo something
+    shell: echo hello world
+    register: output
+
+  - debug:
+      var: output.stdout_lines
+    # commands:  
+    # qm start <vmid>
+    # qm create <vmid> [OPTIONS]
