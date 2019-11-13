@@ -49,18 +49,8 @@ cts:
     disk: '80'
     onboot: false
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.69/24,bridge=vmbr0,firewall=1"}'
-  vpn:
-    vmid: '103'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '1024'
-    swap: '1024'
-    cores: '1'
-    onboot: false
-    storage: 'local-zfs'
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.70/24,bridge=vmbr0,firewall=1"}'
   test:
-    vmid: '104'
+    vmid: '103'
     node: 'pve'
     type: 'ubuntu'
     memory: '512'
