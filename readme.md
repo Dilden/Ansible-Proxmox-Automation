@@ -3,9 +3,18 @@
 ## What is this?
 This repo contains the Ansible playbooks and configuration used to manage and automate my Proxmox based homelab.
 
+## Requirements
+* [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html)
+* [python >= 2.7](https://www.python.org/downloads/)
+* [Proxmox Module](https://docs.ansible.com/ansible/latest/modules/proxmox_module.html)
+* [proxmoxer](https://pypi.org/project/proxmoxer/)
+* [proxmox_kvm](https://docs.ansible.com/ansible/latest/modules/proxmox_kvm_module.html)
+* [requests](https://pypi.org/project/requests/)
+
+
 ## Installation
 [Clone this repo](https://github.com/Dilden/Ansible-Proxmox-Automation)
-Ensure you also have [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html) installed
+Ensure you also have [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html) (and all other requirements) installed
 
 ## The main points
 * Configuration is set in `ansible.cfg`. This exists only to tell Ansible where to look for server definitions (inventory).
@@ -24,8 +33,8 @@ After setting up everything, run the prep-host.yml playbook to ensure proxmoxer 
 
 Since I keep forgetting how to run these update commands, I figured I should document them here.
 
-Update host: `ansible-playbook books/update-host-all.yml --ask-vault-pass -u root`
-Update containers: `ansible-playbook books/update-containers.yml --ask-vault-pass -u root`
+Update host: `ansible-playbook books/update-host-all.yml --ask-vault-pass`
+Update containers: `ansible-playbook books/update-containers.yml --ask-vault-pass`
 
 Some useful ad-hoc commands might look like:
 `ansible closingtags -a "find /var/www/html/. -type f -mtime -15" --ask-vault-pass -u root` to find any files modified in the past 15 days
