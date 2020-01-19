@@ -1,13 +1,57 @@
 ---
-- hosts: virtualizer
+# creates and starts VMs from virtualizer vars
+- name: 'deploy VMs'
+
+  hosts: virtualizer
 
   tasks:
-  - name: echo something
-    shell: echo hello world
-    register: output
+  - name: 'include vars'
+    include_vars: '../group_vars/virtualizer/vars.yml'
 
-  - debug:
-      var: output.stdout_lines
-    # commands:  
-    # qm start <vmid>
-    # qm create <vmid> [OPTIONS]
+
+  - name: 'create VMs'
+    proxmox_kvm:
+  #    vmid: '{{ item.value.vmid | default([])}}'
+  #    api_user: "{{ api_user }}"
+  #    api_password: "{{ api_password }}"
+  #    api_host: "{{ api_host }}"
+  #    hostname: '{{ item.key }}'
+  #    node: '{{ item.value.node }}'
+  #    cores: '{{ item.value.cores | default(defaults.cores) }}'
+  #    cpus: '{{ item.value.cpu | default(defaults.cpu) }}'
+  #    memory: '{{ item.value.memory | default(defaults.memory.ct) }}'
+  #    swap: '{{ item.value.swap | default([]) }}'
+  #    disk: '{{ item.value.disk | default(defaults.disk) }}'
+  #    #mounts: '{{ item.value.mounts | default([]) }}'
+  #    netif: '{{ item.value.netif | default([]) }}'
+  #    storage: '{{ item.value.storage | default(defaults.storage.ct) }}'
+  #    onboot: '{{ item.value.onboot | default(defaults.onboot) }}'
+  #    nameserver: '{{ item.value.nameserver | default(defaults.nameserver) }}'
+  #    ostemplate: '{{ item.value.ostemplate | default(defaults.ostemplate) }}'
+  #    state: 'present'
+  #  with_dict: "{{ vms }}"
+  #  loop_control:
+  #    pause: 5
+  #  notify:
+  #    - 'sleep'
+  #  register: 'created_cts_pve'
+  #  when: 'not item.value.cloudinit | default(false) | bool'
+
+  #- meta: 'flush_handlers'
+  #  when: 'created_cts_pve.changed'
+
+  #- name: 'start ct deployment'
+  #  proxmox:
+  #    api_user: "{{ api_user }}"
+  #    api_password: "{{ api_password }}"
+  #    api_host: "{{ api_host }}"
+  #    node: "{{ item.item.value.node }}"
+  #    hostname: "{{ item.item.key }}"
+  #    state: 'started'
+  #  with_items: "{{ created_cts_pve.results }}"
+  #  notify:
+  #    - 'sleep'
+  #  when: 'item.changed'
+
+  #- meta: 'flush_handlers'
+  #  when: 'created_vms_pve.changed'

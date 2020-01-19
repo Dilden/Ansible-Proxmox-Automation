@@ -58,3 +58,9 @@ cts:
     cores: '1'
     storage: 'local-zfs'
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.71/24,bridge=vmbr0,firewall=1"}'
+vms:
+  test_vm:
+    name: 'test_vm'
+    vmid: '104'
+    memory: '1024'
+    net: 
