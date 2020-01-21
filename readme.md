@@ -1,14 +1,12 @@
 # Dilden's Ansible + Proxmox Homelab Automation
 
 ## What is this?
-This repo contains the Ansible playbooks and configuration used to manage and automate my Proxmox based homelab.
+This repo contains the Ansible playbooks and configuration used to manage and automate my Proxmox based homelab. It makes use of the [proxmox](https://docs.ansible.com/ansible/latest/modules/proxmox_module.html) and [proxmox_kvm](https://docs.ansible.com/ansible/latest/modules/proxmox_kvm_module.html) modules.
 
 ## Requirements
 * [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html)
 * [python >= 2.7](https://www.python.org/downloads/)
-* [Proxmox Module](https://docs.ansible.com/ansible/latest/modules/proxmox_module.html)
 * [proxmoxer](https://pypi.org/project/proxmoxer/)
-* [proxmox_kvm](https://docs.ansible.com/ansible/latest/modules/proxmox_kvm_module.html)
 * [requests](https://pypi.org/project/requests/)
 
 
@@ -24,9 +22,9 @@ Ensure you also have [Ansible](https://docs.ansible.com/ansible/latest/installat
 `---
 vault_api_password: 'PROXMOX_HOST_PASSWORD'
 `
-From there, containers are configured within group_vars/virtualizer/vars.yml
+Just as the virtualizer API key needs to be set in `group_vars/virtualizer/creds.yml`, the containers will need to have passwords configured within `group_vars/containers/creds.yml` matching the appropriate variables set in `group_vars/containers/vars.yml`.
 
-After setting up everything, run the prep-host.yml playbook to ensure proxmoxer and other various dependencies are installed on the host.
+After setting up everything, run `ansible-playbook books\prep-host.yml` to ensure proxmoxer and other various dependencies are installed on the host.
 
 ## Usage
 * Note: All commands will need to be run with `--ask-vault-pass` appended to them to work with this config.
