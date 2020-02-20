@@ -22,6 +22,7 @@
       api_host: "{{ api_host }}"
       hostname: '{{ item.key }}'
       node: '{{ item.value.node }}'
+      password: '{{ item.value.password }}'
       cores: '{{ item.value.cores | default(defaults.cores) }}'
       cpus: '{{ item.value.cpu | default(defaults.cpu) }}'
       memory: '{{ item.value.memory | default(defaults.memory.ct) }}'
