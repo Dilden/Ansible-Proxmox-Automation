@@ -21,8 +21,14 @@ Ensure you also have [Ansible](https://docs.ansible.com/ansible/latest/installat
 * `creds.yml` will need to be created via `ansible-vault create` in the appropriate folder and will need to be configured like so:
 `---
 vault_api_password: 'PROXMOX_HOST_PASSWORD'
+# containers
+vault_100: 'CONTAINER_PASSWORD'
+vault_101: 'CONTAINER_PASSWORD'
+.
+.
+.
 `
-Just as the virtualizer API key needs to be set in `group_vars/virtualizer/creds.yml`, the containers will need to have passwords configured within `group_vars/containers/creds.yml` matching the appropriate variables set in `group_vars/containers/vars.yml`.
+~~Just as the virtualizer API key needs to be set in `group_vars/virtualizer/creds.yml`, the containers will need to have passwords configured within `group_vars/containers/creds.yml` matching the appropriate variables set in `group_vars/containers/vars.yml`.~~
 
 After setting up everything, run `ansible-playbook books\prep-host.yml` to ensure proxmoxer and other various dependencies are installed on the host.
 
