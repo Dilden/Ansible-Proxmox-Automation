@@ -21,7 +21,7 @@ Ensure you also have [Ansible](https://docs.ansible.com/ansible/latest/installat
 * `creds.yml` will need to be created via `ansible-vault create` in the appropriate folder and will need to be configured like so:
 `---
 vault_api_password: 'PROXMOX_HOST_PASSWORD'
-# containers
+
 vault_100: 'CONTAINER_PASSWORD'
 vault_101: 'CONTAINER_PASSWORD'
 .
