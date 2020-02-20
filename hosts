@@ -16,6 +16,8 @@ closingtags.com ansible_host=192.168.1.68 ansible_ssh_password=101_password ansi
 [containers]
 plex ansible_host=192.168.1.67 ansible_ssh_password=100_password ansible_user=root
 closingtags ansible_host=192.168.1.68 ansible_ssh_password=101_password ansible_user=root
+zoneminder ansible_host=192.168.1.69 ansible_ssh_password=102_password ansible_user=root
+cloud ansible_host=192.168.1.70 ansible_ssh_password=104_password ansible_user=root
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
