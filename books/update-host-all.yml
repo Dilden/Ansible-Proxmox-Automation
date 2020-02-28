@@ -1,5 +1,5 @@
 ---
-- hosts: virtualizer
+- hosts: host
   remote_user: root
 
   tasks:

@@ -1,6 +1,6 @@
 ---
 - name: 'stop and remove container'
-  hosts: 'virtualizer'
+  hosts: 'host'
 
   handlers:
   - name: 'sleep'

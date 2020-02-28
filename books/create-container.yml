@@ -1,8 +1,8 @@
 ---
-# creates and starts containers from virtualizer vars
+# creates and starts containers from host vars
 - name: 'deploy containers'
 
-  hosts: 'virtualizer'
+  hosts: 'host'
   gather_facts: false
 
   handlers:
@@ -12,7 +12,7 @@
 
   tasks:
   - name: 'include vars'
-    include_vars: '../group_vars/virtualizer/vars.yml'
+    include_vars: '../group_vars/host/vars.yml'
 
   - name: 'create containers'
     proxmox:

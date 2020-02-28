@@ -1,12 +1,12 @@
 ---
-# creates and starts VMs from virtualizer vars
+# creates and starts VMs from host vars
 - name: 'deploy VMs'
 
-  hosts: virtualizer
+  hosts: host
 
   tasks:
   - name: 'include vars'
-    include_vars: '../group_vars/virtualizer/vars.yml'
+    include_vars: '../group_vars/host/vars.yml'
 
 
   - name: 'create VMs'

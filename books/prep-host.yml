@@ -1,6 +1,6 @@
 ---
 - name: 'prep host for automation'
-  hosts: 'virtualizer'
+  hosts: 'host'
   vars:
       packages:
           - 'python-pip'

@@ -28,7 +28,7 @@ vault_101: 'CONTAINER_PASSWORD'
 ```
 
 
-~~Just as the virtualizer API key needs to be set in group_vars/virtualizer/creds.yml, the containers will need to have passwords configured within group_vars/containers/creds.yml matching the appropriate variables set in group_vars/containers/vars.yml.~~
+~~Just as the host API key needs to be set in group_vars/host/creds.yml, the containers will need to have passwords configured within group_vars/containers/creds.yml matching the appropriate variables set in group_vars/containers/vars.yml.~~
 
 After setting up everything, run `ansible-playbook books\prep-host.yml` to ensure proxmoxer and other various dependencies are installed on the host.
 
