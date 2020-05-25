@@ -66,6 +66,19 @@ cts:
     ostemplate: 'local:vztmpl/ubuntu-16.04-standard_16.04-1_amd64.tar.gz'
     #mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
     password: "{{ vault_104 }}"
+  cloud:
+    vmid: '105'
+    node: 'pve'
+    type: 'ubuntu'
+    memory: '512'
+    swap: '512'
+    cores: '1'
+    disk: '20'
+    storage: 'local-zfs'
+    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.71/24,bridge=vmbr0,firewall=1"}'
+    ostemplate: 'local:vztmpl/ubuntu-18.04-standard_18.04.1-1_amd64.tar.gz'
+    #mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
+    password: "{{ vault_105 }}"
 #vms:
 #  test_vm:
 #    name: 'test_vm'
