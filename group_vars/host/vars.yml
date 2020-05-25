@@ -23,7 +23,7 @@ cts:
     node: 'pve'
     type: 'ubuntu'
     memory: '1024'
-    swap: '512'
+    swap: '1024'
     cores: '1'
     storage: 'local-zfs'
     mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
