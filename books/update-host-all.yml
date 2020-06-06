@@ -3,7 +3,7 @@
   remote_user: root
 
   tasks:
-   - name: Update apt cache, upgrade packages, remove useless packages from cache, remove dependencies that are no longer required
+   - name: Update apt cache, dist-upgrade packages, remove useless packages from cache, remove dependencies that are no longer required
      apt:
          update_cache: yes
          upgrade: dist
