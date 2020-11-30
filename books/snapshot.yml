@@ -9,9 +9,6 @@
       private: no
 
   tasks:
-
-   - name: Backup specified container.
-     debug:
-         msg: pct snapshot {{ ctid }} ctid{{ ctid }}__{{ ansible_date_time.day }}_{{ ansible_date_time.month}}_{{ ansible_date_time.year}}_snapshot
-         #     command:
-         #         - cmd: pct snapshot {{ ctid }} {{ ctid }}_snapshot
+      - name: Snapshot specified container.
+        command:
+            cmd: pct snapshot {{ ctid }} ctid{{ ctid }}__{{ ansible_date_time.day }}_{{ ansible_date_time.month}}_{{ ansible_date_time.year}}_snapshot

@@ -1,0 +1,19 @@
+---
+- hosts: host
+  remote_user: root
+
+  vars_prompt:
+    - name: ctid
+      prompt: 'Specify container ID or leave blank for all'
+      private: no
+
+  tasks:
+      - name: Backup all containers.
+        command:
+            cmd: vzdump --all --maxfiles 5 --compress gzip
+        when: ctid == ""
+
+      - name: Backup specified container.
+        command:
+            cmd: vzdump {{ ctid }} --maxfiles 5 --compress gzip
+        when: ctid != ""
