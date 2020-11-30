@@ -1,0 +1,17 @@
+---
+- hosts: host
+  remote_user: root
+
+  vars_prompt:
+
+    - name: ctid
+      prompt: 'Specify container ID to snapshot'
+      private: no
+
+  tasks:
+
+   - name: Backup specified container.
+     debug:
+         msg: pct snapshot {{ ctid }} ctid{{ ctid }}__{{ ansible_date_time.day }}_{{ ansible_date_time.month}}_{{ ansible_date_time.year}}_snapshot
+         #     command:
+         #         - cmd: pct snapshot {{ ctid }} {{ ctid }}_snapshot
