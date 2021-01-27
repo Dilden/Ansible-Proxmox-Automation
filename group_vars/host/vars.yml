@@ -12,7 +12,7 @@ defaults:
   onboot: true
   pubkey: '%'
   disk: '8'
-  nameserver: '192.168.1.67'
+  nameserver: '192.168.1.65'
   storage:
     ct: 'local'
   ostemplate: 'local:vztmpl/ubuntu-16.04-standard_16.04-1_amd64.tar.gz'
@@ -53,6 +53,18 @@ cts:
     onboot: false
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.69/24,bridge=vmbr0,firewall=1"}'
     password: "{{ vault_102 }}"
+  pihole:
+    vmid: '103'
+    node: 'pve'
+    type: 'ubuntu'
+    memory: '512'
+    swap: '512'
+    cores: '1'
+    storage: 'local-zfs'
+    disk: '80'
+    onboot: false
+    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.65/24,bridge=vmbr0,firewall=1"}'
+    password: "{{ vault_103 }}"
   vpn:
     vmid: '104'
     node: 'pve'

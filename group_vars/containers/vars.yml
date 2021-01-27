@@ -3,5 +3,6 @@
 100_password: '{{ vault_100 }}'
 101_password: '{{ vault_101 }}'
 102_password: '{{ vault_102 }}'
+103_password: '{{ vault_103 }}'
 104_password: '{{ vault_104 }}'
 105_password: '{{ vault_105 }}'
