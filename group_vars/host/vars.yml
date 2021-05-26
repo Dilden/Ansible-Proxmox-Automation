@@ -3,98 +3,17 @@
 api_user: 'root@pam'
 api_password: '{{ vault_api_password }}'
 api_host: 'localhost'
-includ_vars: '../containers/vars.yml'
 defaults:
   cores: '1'
   cpu: '1'
   memory:
     ct: '1024'
   onboot: true
+  node: 'pve'
   pubkey: '%'
   disk: '8'
   nameserver: '192.168.1.65'
   storage:
     ct: 'local'
-  ostemplate: 'local:vztmpl/ubuntu-16.04-standard_16.04-1_amd64.tar.gz'
+  ostemplate: 'local:vztmpl/ubuntu-20.10-standard_20.10-1_amd64.tar.gz'
 
-cts:
-  plex:
-    vmid: '100'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '1024'
-    swap: '1024'
-    cores: '1'
-    storage: 'local-zfs'
-    mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.67/24,bridge=vmbr0,firewall=1"}'
-    password: "{{ vault_100 }}"
-  closingtags:
-    vmid: '101'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '1024'
-    swap: '512'
-    cores: '1'
-    storage: 'local-zfs'
-    disk: '10'
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.68/24,bridge=vmbr0,firewall=1"}'
-    ostemplate: 'local:vztmpl/Ubuntu16.04-nginx-mariadb-php7-certbot-git.tar.gz'
-    password: "{{ vault_101 }}"
-  zoneminder:
-    vmid: '102'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '512'
-    swap: '512'
-    cores: '1'
-    storage: 'local-zfs'
-    disk: '80'
-    onboot: false
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.69/24,bridge=vmbr0,firewall=1"}'
-    password: "{{ vault_102 }}"
-  pihole:
-    vmid: '103'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '512'
-    swap: '512'
-    cores: '1'
-    storage: 'local-zfs'
-    disk: '80'
-    onboot: false
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.65/24,bridge=vmbr0,firewall=1"}'
-    password: "{{ vault_103 }}"
-  vpn:
-    vmid: '104'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '1024'
-    swap: '1024'
-    cores: '1'
-    disk: '16'
-    storage: 'local-zfs'
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.70/24,bridge=vmbr0,firewall=1"}'
-    ostemplate: 'local:vztmpl/ubuntu-16.04-standard_16.04-1_amd64.tar.gz'
-    #mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
-    password: "{{ vault_104 }}"
-  cloud:
-    vmid: '105'
-    node: 'pve'
-    type: 'ubuntu'
-    memory: '512'
-    swap: '512'
-    cores: '1'
-    disk: '20'
-    storage: 'local-zfs'
-    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.71/24,bridge=vmbr0,firewall=1"}'
-    ostemplate: 'local:vztmpl/ubuntu-18.04-standard_18.04.1-1_amd64.tar.gz'
-    #mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
-    password: "{{ vault_105 }}"
-#vms:
-#  test_vm:
-#    name: 'test_vm'
-#    vmid: '104'
-#    cores: '1'
-#    memory: '1024'
-#    net: 
