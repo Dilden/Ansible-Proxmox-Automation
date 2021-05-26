@@ -7,11 +7,9 @@
 104_password: '{{ vault_104 }}'
 105_password: '{{ vault_105 }}'
 
-
 cts:
   plex:
     vmid: '100'
-    node: 'pve'
     type: 'ubuntu'
     memory: '1024'
     swap: '1024'
@@ -22,7 +20,6 @@ cts:
     password: "{{ vault_100 }}"
   closingtags:
     vmid: '101'
-    node: 'pve'
     type: 'ubuntu'
     memory: '1024'
     swap: '512'
@@ -34,7 +31,6 @@ cts:
     password: "{{ vault_101 }}"
   zoneminder:
     vmid: '102'
-    node: 'pve'
     type: 'ubuntu'
     memory: '512'
     swap: '512'
@@ -46,7 +42,6 @@ cts:
     password: "{{ vault_102 }}"
   pihole:
     vmid: '103'
-    node: 'pve'
     type: 'ubuntu'
     memory: '512'
     swap: '512'
@@ -58,7 +53,6 @@ cts:
     password: "{{ vault_103 }}"
   vpn:
     vmid: '104'
-    node: 'pve'
     type: 'ubuntu'
     memory: '1024'
     swap: '1024'
@@ -71,7 +65,6 @@ cts:
     password: "{{ vault_104 }}"
   cloud:
     vmid: '105'
-    node: 'pve'
     type: 'ubuntu'
     memory: '512'
     swap: '512'
@@ -84,7 +77,6 @@ cts:
     password: "{{ vault_105 }}"
   test:
     vmid: '106'
-    node: 'pve'
     type: 'ubuntu'
     memory: '512'
     swap: '512'

@@ -6,7 +6,9 @@
 
   tasks:
   - name: 'include vars'
-    include_vars: '../group_vars/host/vars.yml'
+    include_vars:
+        dir: '../group_vars/'
+        files_matching: 'vars.yml'
 
 
   - name: 'create VMs'

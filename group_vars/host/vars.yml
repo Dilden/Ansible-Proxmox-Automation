@@ -10,7 +10,7 @@ defaults:
     ct: '1024'
   onboot: true
   node: 'pve'
-  pubkey: '%'
+  pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   disk: '8'
   nameserver: '192.168.1.65'
   storage:
