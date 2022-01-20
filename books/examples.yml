@@ -1,6 +1,6 @@
 # Create new container with minimal options
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_password: 1q2w3e
@@ -14,7 +14,7 @@
 
 # Create new container with minimal options with force(it will rewrite existing container)
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_password: 1q2w3e
@@ -26,7 +26,7 @@
 
 # Create new container with minimal options use environment PROXMOX_PASSWORD variable(you should export it before)
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_host: node1
@@ -36,7 +36,7 @@
 
 # Create new container with minimal options defining network interface with dhcp
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_password: 1q2w3e
@@ -48,7 +48,7 @@
 
 # Create new container with minimal options defining network interface with static ip
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_password: 1q2w3e
@@ -60,7 +60,7 @@
 
 # Create new container with minimal options defining a mount
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     node: uk-mc02
     api_user: root@pam
     api_password: 1q2w3e
@@ -72,7 +72,7 @@
 
 # Start container
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     api_user: root@pam
     api_password: 1q2w3e
     api_host: node1
@@ -80,7 +80,7 @@
 
 # Stop container
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     api_user: root@pam
     api_password: 1q2w3e
     api_host: node1
@@ -88,7 +88,7 @@
 
 # Stop container with force
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     api_user: root@pam
     api_password: 1q2w3e
     api_host: node1
@@ -97,7 +97,7 @@
 
 # Restart container(stopped or mounted container you can't restart)
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     api_user: root@pam
     api_password: 1q2w3e
     api_host: node1
@@ -105,7 +105,7 @@
 
 # Remove container
 - proxmox:
-    vmid: 100
+    vmid: 2XX
     api_user: root@pam
     api_password: 1q2w3e
     api_host: node1
