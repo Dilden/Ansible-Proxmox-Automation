@@ -10,10 +10,14 @@
 [host]
 192.168.1.66 ansible_user=root
 
+[pihole]
+pihole ansible_host=192.168.1.65 ansible_ssh_password=103_password ansible_user=root
+
 [webservers]
 closingtags.com ansible_host=192.168.1.68 ansible_ssh_password=101_password ansible_user=root
 
 [containers]
+pihole ansible_host=192.168.1.65 ansible_ssh_password=103_password ansible_user=root
 plex ansible_host=192.168.1.67 ansible_ssh_password=100_password ansible_user=root
 closingtags ansible_host=192.168.1.68 ansible_ssh_password=101_password ansible_user=root
 #zoneminder ansible_host=192.168.1.69 ansible_ssh_password=102_password ansible_user=root
@@ -43,7 +47,7 @@ cloud ansible_host=192.168.1.71 ansible_ssh_password=105_password ansible_user=r
 # Ex 3: A collection of database servers in the 'dbservers' group
 
 ## [dbservers]
-## 
+##
 ## db01.intranet.mydomain.net
 ## db02.intranet.mydomain.net
 ## 10.25.1.56
@@ -53,5 +57,3 @@ cloud ansible_host=192.168.1.71 ansible_ssh_password=105_password ansible_user=r
 # leading 0s:
 
 ## db-[99:101]-node.example.com
-
-
