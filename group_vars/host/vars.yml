@@ -53,6 +53,18 @@ cts:
     onboot: false
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.69/24,bridge=vmbr0,firewall=1"}'
     password: "{{ vault_102 }}"
+  pihole:
+    vmid: '103'
+    node: 'pve'
+    type: 'ubuntu'
+    memory: '512'
+    swap: '512'
+    cores: '1'
+    storage: 'local-zfs'
+    disk: '8'
+    onboot: false
+    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.65/24,bridge=vmbr0,firewall=1"}'
+    password: "{{ vault_103 }}"
   vpn:
     vmid: '104'
     node: 'pve'
@@ -85,4 +97,4 @@ cts:
 #    vmid: '104'
 #    cores: '1'
 #    memory: '1024'
-#    net: 
+#    net:
