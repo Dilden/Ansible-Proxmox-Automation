@@ -3,20 +3,21 @@
 api_user: 'root@pam'
 api_password: '{{ vault_api_password }}'
 api_host: 'localhost'
-includ_vars: '../containers/vars.yml'
 defaults:
   cores: '1'
   cpu: '1'
   memory:
     ct: '1024'
   onboot: true
-  pubkey: '%'
+  node: 'pve'
+  pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   disk: '8'
-  nameserver: '192.168.1.67'
+  nameserver: '192.168.1.65'
   storage:
     ct: 'local'
-  ostemplate: 'local:vztmpl/ubuntu-16.04-standard_16.04-1_amd64.tar.gz'
+  ostemplate: 'local:vztmpl/ubuntu-20.10-standard_20.10-1_amd64.tar.gz'
 
+<<<<<<< HEAD
 cts:
   plex:
     vmid: '100'

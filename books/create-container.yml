@@ -1,5 +1,5 @@
 ---
-# creates and starts containers from host vars
+# creates and starts containers from container vars with host vars defaults
 - name: 'deploy containers'
 
   hosts: 'host'
@@ -12,7 +12,9 @@
 
   tasks:
   - name: 'include vars'
-    include_vars: '../group_vars/host/vars.yml'
+    include_vars:
+        dir: '../group_vars/'
+        files_matching: 'vars.yml'
 
   - name: 'create containers'
     proxmox:
@@ -21,8 +23,9 @@
       api_password: "{{ api_password }}"
       api_host: "{{ api_host }}"
       hostname: '{{ item.key }}'
-      node: '{{ item.value.node }}'
+      node: '{{ item.value.node | default(defaults.node) }}'
       password: '{{ item.value.password }}'
+      pubkey: '{{ item.value.pubkey | default(defaults.pubkey) }}'
       cores: '{{ item.value.cores | default(defaults.cores) }}'
       cpus: '{{ item.value.cpu | default(defaults.cpu) }}'
       memory: '{{ item.value.memory | default(defaults.memory.ct) }}'
@@ -51,7 +54,7 @@
       api_user: "{{ api_user }}"
       api_password: "{{ api_password }}"
       api_host: "{{ api_host }}"
-      node: "{{ item.item.value.node }}"
+      node: '{{ item.value.node | default(defaults.node) }}'
       hostname: "{{ item.item.key }}"
       state: 'started'
     with_items: "{{ created_cts_pve.results }}"

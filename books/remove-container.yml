@@ -8,9 +8,9 @@
       seconds: 5
 
   tasks:
-  - name: 'stop container 104'
+  - name: 'stop container 106'
     proxmox:
-      vmid: '104'
+      vmid: '106'
       api_user: 'root@pam'
       api_password: '{{ vault_api_password }}'
       api_host: 'localhost'
@@ -18,9 +18,9 @@
     notify:
       - 'sleep'
 
-  - name: 'remove container 104'
+  - name: 'remove container 106'
     proxmox:
-      vmid: '104'
+      vmid: '106'
       api_user: 'root@pam'
       api_password: '{{ vault_api_password }}'
       api_host: 'localhost'

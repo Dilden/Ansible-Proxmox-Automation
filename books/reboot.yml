@@ -1,0 +1,15 @@
+---
+- hosts: host
+  remote_user: root
+
+  vars_prompt:
+
+    - name: ctid
+      prompt: 'Specify container ID to reboot'
+      private: no
+
+  tasks:
+      - name: Reboot specified container.
+        command:
+            cmd: pct reboot {{ ctid }}
+
