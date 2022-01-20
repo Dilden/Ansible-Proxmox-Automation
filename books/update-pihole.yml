@@ -1,0 +1,11 @@
+---
+- hosts: pihole
+  remote_user: root
+
+  tasks:
+   - name: Update pihole
+     command:
+        cmd: pihole -up
+     register: pihole_update
+   - debug:
+       var: pihole_update.stdout_lines
