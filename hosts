@@ -10,8 +10,8 @@
 [host]
 192.168.1.66 ansible_user=root
 
-[pihole]
-pihole ansible_host=192.168.1.65 ansible_ssh_password=103_password ansible_user=root
+[dns]
+pihole ansible_host=192.168.1.65 ansible_user=root
 
 [web]
 closingtags.com ansible_host=192.168.1.68 ansible_user=root
