@@ -21,9 +21,6 @@ closingtags.com ansible_host=192.168.1.68 ansible_user=root
 cloud ansible_host=192.168.1.71 ansible_user=root
 nodejs ansible_host=192.168.1.69 ansible_user=root
 
-[nodejs]
-nodejs ansible_host=192.168.1.69 ansible_user=root
-
 [containers]
 plex ansible_host=192.168.1.67 ansible_user=root
 closingtags.com ansible_host=192.168.1.68 ansible_user=root
