@@ -1,5 +1,0 @@
----
-- name: Install NodeJS
-  tags: nodejs
-  debug:
-    msg: "install node js"

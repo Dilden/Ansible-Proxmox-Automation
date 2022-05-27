@@ -1,0 +1,11 @@
+---
+- name: Download nodesource install script
+  tags: nodejs, install
+  get_url:
+    url: https://deb.nodesource.com/setup_current.x
+    dest: /root/nodesource.sh
+    mode: x700
+
+- name: Install nodesource repository
+  tags: nodejs, install
+  script: /root/nodesource.sh
