@@ -2,13 +2,5 @@
 - hosts: host
   remote_user: root
 
-  tasks:
-   - name: Update apt cache, dist-upgrade packages, remove useless packages from cache, remove dependencies that are no longer required
-     apt:
-         update_cache: yes
-         upgrade: dist
-         autoclean: yes
-         autoremove: yes
-     register: hosts_update
-   - debug:
-       var: hosts_update.stdout_lines
+  roles:
+    - base
