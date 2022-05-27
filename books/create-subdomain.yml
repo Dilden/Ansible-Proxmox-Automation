@@ -11,4 +11,3 @@
   roles:
    - nginx
    - certbot
-   - node
