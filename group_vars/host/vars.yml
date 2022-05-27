@@ -41,7 +41,7 @@ cts:
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.68/24,bridge=vmbr0,firewall=1"}'
     ostemplate: 'local:vztmpl/Ubuntu16.04-nginx-mariadb-php7-certbot-git.tar.gz'
     password: "{{ vault_101 }}"
-  zoneminder:
+  nodejs:
     vmid: '102'
     node: 'pve'
     type: 'ubuntu'

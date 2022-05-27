@@ -1,6 +1,6 @@
 ---
-- name: 'stop and remove container'
-  hosts: 'host'
+- name: stop and remove container
+  hosts: host
 
   handlers:
   - name: 'sleep'
@@ -8,9 +8,9 @@
       seconds: 5
 
   tasks:
-  - name: 'stop container 106'
+  - name: stop container 102
     proxmox:
-      vmid: '106'
+      vmid: '102'
       api_user: 'root@pam'
       api_password: '{{ vault_api_password }}'
       api_host: 'localhost'
@@ -18,9 +18,9 @@
     notify:
       - 'sleep'
 
-  - name: 'remove container 106'
+  - name: remove container 102
     proxmox:
-      vmid: '106'
+      vmid: '102'
       api_user: 'root@pam'
       api_password: '{{ vault_api_password }}'
       api_host: 'localhost'
