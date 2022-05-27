@@ -1,0 +1,14 @@
+---
+- hosts: site
+  remote_user: root
+  vars_prompt:
+    - name: host_name
+      prompt: 'Specify a host name'
+      private: no
+    - name: ip
+      prompt: 'Specify an IP address'
+      private: no
+  roles:
+   - nginx
+   - certbot
+   - node

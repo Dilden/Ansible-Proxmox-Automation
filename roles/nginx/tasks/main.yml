@@ -1,0 +1,38 @@
+- name: Add site config file for new domain
+  tags: subdomain
+  copy:
+    src: site
+    dest: /etc/nginx/sites-available/{{ host_name }}
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Update site config server_name
+  tags: subdomain
+  lineinfile:
+    path: /etc/nginx/sites-available/{{ host_name }}
+    regexp: '(?!\s)server_name'
+    line: '          server_name {{ host }}.closingtags.com'
+  register: domain_updated
+
+- name: Update site config ip address
+  tags: subdomain
+  lineinfile:
+    path: /etc/nginx/sites-available/{{ host_name }}
+    regexp: '(?!\s)proxy_pass'
+    line: '                  proxy_pass http://{{ ip }};'
+  register: ip_updated
+
+- name: Enable new site
+  tags: subdomain
+  file:
+    src: /etc/nginx/sites-available/{{ host_name }}
+    dest: /etc/nginx/sites-enabled/{{ host_name }}
+    state: link
+  when: domain_updated.changed or ip_updated.changed
+
+- name: Restart nginx
+  tags: subdomain
+  service:
+    name: nginx
+    state: restarted

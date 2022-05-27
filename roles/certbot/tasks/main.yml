@@ -1,0 +1,9 @@
+---
+- name: Create new certificate with Certbot
+  tags: ssl
+  debug:
+    msg: "creating cert w/certbot"
+- name: add cert to site config
+  tags: subdomain, ssl
+  debug:
+    msg: "adding cert to site config"
