@@ -1,11 +1,11 @@
- - name: Update apt cache, upgrade packages, remove useless packages from cache, remove dependencies that are no longer required
-   tags: full-upgrade
-   apt:
-       update_cache: yes
-       upgrade: dist
-       autoclean: yes
-       autoremove: yes
-    register:
-      changes
+- name: Update apt cache, upgrade packages, remove useless packages from cache, remove dependencies that are no longer required
+  tags: upgrade
+  apt:
+    update_cache: yes
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
+  register:
+    changes
 - debug:
-  var: changes.stdout_lines
+    var: changes.stdout_lines
