@@ -1,5 +1,5 @@
 - name: create containers
-  tags: proxmox, create
+  tags: proxmox, create, deploy
   proxmox:
     vmid: '{{ item.value.vmid | default([])}}'
     api_user: "{{ api_user }}"
@@ -33,6 +33,7 @@
 - meta: flush_handlers
 
 - name: start ct deployment
+  tags: proxmox, create, deploy
   proxmox:
     api_user: "{{ api_user }}"
     api_password: "{{ api_password }}"
