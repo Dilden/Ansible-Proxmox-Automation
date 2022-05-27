@@ -2,8 +2,4 @@
 - hosts: nodejs
   remote_user: root
   roles:
-    -role:
-      nodejs
-    - role:
-      base
-      tags: full-upgrade
+    - nodejs
