@@ -1,3 +1,15 @@
+- name: Install nginx
+  tags: install, nginx
+  apt:
+    name: nginx
+    state: latest
+
+- name: Start nginx
+  tags: install, nginx
+  service:
+    name: nginx
+    state: started
+
 - name: Add site config file for new domain
   tags: subdomain
   copy:
