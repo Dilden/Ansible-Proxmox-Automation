@@ -1,9 +1,11 @@
----
-- name: Create new certificate with Certbot
+- name: Install certbot
+  tags: certbot, setup
+  pip:
+    name:
+      - certbot
+      - certbot-nginx
+    executable: pip3
+
+- name: Get new certificate
   tags: ssl
-  debug:
-    msg: "creating cert w/certbot"
-- name: add cert to site config
-  tags: subdomain, ssl
-  debug:
-    msg: "adding cert to site config"
+  command: '/usr/local/bin/certbot -n --nginx certonly -d {{ host_name }}.closingtags.com --dry-run'
