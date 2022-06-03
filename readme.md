@@ -33,7 +33,9 @@ vault_101: 'CONTAINER_PASSWORD'
 After setting up everything, run `ansible-playbook books\prep-host.yml` to ensure proxmoxer and other various dependencies are installed on the host.
 
 ## Usage
-* Note: All commands will need to be run with `--ask-vault-pass` appended to them to work with this config.
+* Note: Only commands run on the host will need to be run with `--ask-vault-pass` appended to them to work with this config. Commands run inside containers will be able to connect via SSH if using the `create-containers.yml` playbook since it automatically adds the SSH key to each of those systems.
+
+To create new containers, add a new entry to group_vars/host/vars.yml and run `ansible-playbook books/create-containers.yml --ask-vault-pass`.
 
 Update host: `ansible-playbook books/update-host-all.yml --ask-vault-pass`
 
