@@ -2,4 +2,5 @@
 - hosts: nodejs
   remote_user: root
   roles:
+    - nginx
     - nodejs
