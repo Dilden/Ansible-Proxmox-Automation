@@ -6,6 +6,6 @@
       - certbot-nginx
     executable: pip3
 
-- name: Get new certificate
-  tags: ssl
-  command: '/usr/local/bin/certbot -n --nginx certonly -d {{ host_name }}.closingtags.com --dry-run'
+      #- name: Get new certificate
+      #  tags: ssl
+      #  command: '/usr/local/bin/certbot -n --nginx certonly -d {{ host_name }}.closingtags.com --dry-run'
