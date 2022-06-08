@@ -24,7 +24,7 @@
   lineinfile:
     path: /etc/nginx/sites-available/{{ host_name }}
     regexp: '(?!\s)server_name'
-    line: '          server_name {{ host_name }}.closingtags.com'
+    line: '          server_name {{ host_name }}.closingtags.com;'
   register: domain_updated
 
 - name: Update site config ip address
