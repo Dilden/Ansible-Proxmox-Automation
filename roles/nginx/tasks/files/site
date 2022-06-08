@@ -1,15 +1,18 @@
-  server {
-          server_name CHANGE_SERVER_NAME;
-          listen 443 ssl;
+server {
+        server_name CHANGE_SERVER_NAME;
+        listen 443 ssl;
 
-          client_max_body_size 10G;
+        ssl_certificate /etc/letsencrypt/live/cloud.closingtags.com/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/cloud.closingtags.com/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-          location / {
-                  proxy_pass http://CHANGE_IP_ADDRESS;
-                  proxy_set_header Host $host;
-                  proxy_set_header X-Real-IP $remote_addr;
-                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header X-Forwarded-Proto "https";
-          }
+        location / {
+                proxy_pass http://CHANGE_IP_ADDRESS;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto "https";
+        }
 
-  }
+}
