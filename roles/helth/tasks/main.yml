@@ -1,0 +1,43 @@
+- name: Build helth app locally
+  tags: helth, build, deploy
+  shell: npm run build
+  args:
+    chdir: ~/Dev/projects/helth/
+  delegate_to: 127.0.0.1
+
+- name: Copy build to server
+  tags: helth, build, deploy
+  copy:
+    src: ~/Dev/projects/helth/build/
+    dest: /var/www/html/
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Copy package.json to server
+  tags: helth, build, deploy
+  copy:
+    src: ~/Dev/projects/helth/package.json
+    dest: /var/www/html/package.json
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Create service file
+  tags: helth, build, deploy
+  template:
+    src: files/service
+    dest: /etc/systemd/system/nodejs.service
+
+- name: Install dependencies
+  tags: helth, build, deploy
+  shell: npm install
+  args:
+    chdir: /var/www/html/
+
+- name: Start NodeJS service
+  tags: helth, build, deploy
+  service:
+    name: nodejs
+    state: started
+    enabled: yes
