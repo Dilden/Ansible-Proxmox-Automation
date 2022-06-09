@@ -42,6 +42,6 @@ Update host: `ansible-playbook books/update-host-all.yml --ask-vault-pass`
 Update containers: `ansible-playbook books/update-containers.yml --ask-vault-pass`
 
 Some useful ad-hoc commands might look like:
-`ansible closingtags -a "find /var/www/html/. -type f -mtime -15" --ask-vault-pass` to find any files modified in the past 15 days
+`ansible closingtags -a "find /var/www/html/. -type f -mtime -15"` to find any files modified in the past 15 days
 
-or `ansible closingtags -a "grep -nr 'atob' /var/www/html/." --ask-vault-pass` to search all files for 'atob'.
+or `ansible closingtags -a "grep -nr 'atob' /var/www/html/."` to search all files for 'atob'.
