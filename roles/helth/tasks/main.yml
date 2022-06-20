@@ -14,6 +14,15 @@
     group: www-data
     mode: 0644
 
+- name: Copy package-lock.json to server
+  tags: helth, build, deploy
+  copy:
+    src: ~/Dev/projects/helth/package-lock.json
+    dest: /var/www/html/package-lock.json
+    owner: www-data
+    group: www-data
+    mode: 0644
+
 - name: Copy package.json to server
   tags: helth, build, deploy
   copy:
@@ -28,10 +37,17 @@
   template:
     src: files/service
     dest: /etc/systemd/system/nodejs.service
+  register: service_conf
 
-- name: Install dependencies
+- name: Reload systemd daemon
+  tags: helth, build, deploy, systemd
+  systemd:
+    daemon_reload: yes
+  when: service_conf.changed
+
+- name: Install dependencies from lockfile
   tags: helth, build, deploy
-  shell: npm install
+  shell: npm ci
   args:
     chdir: /var/www/html/
 
