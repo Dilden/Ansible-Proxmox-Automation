@@ -8,7 +8,7 @@ Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=nodejs-example
-Environment=NODE_PORT=80
+Environment=NODE_ENV=production PORT=80
 
 [Install]
 WantedBy=multi-user.target
