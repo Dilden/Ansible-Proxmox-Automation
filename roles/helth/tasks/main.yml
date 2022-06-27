@@ -51,9 +51,10 @@
   args:
     chdir: /var/www/html/
 
-- name: Start NodeJS service
+- name: Restart NodeJS service
   tags: helth, build, deploy
   service:
     name: nodejs
-    state: started
+    state: restarted
     enabled: yes
+  when: service_conf.changed
