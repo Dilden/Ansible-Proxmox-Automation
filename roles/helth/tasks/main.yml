@@ -57,4 +57,3 @@
     name: nodejs
     state: restarted
     enabled: yes
-  when: service_conf.changed
