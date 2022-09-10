@@ -47,7 +47,7 @@
 
 - name: Install dependencies from lockfile
   tags: helth, build, deploy
-  shell: npm ci
+  shell: npm ci --ignore-scripts
   args:
     chdir: /var/www/html/
 
