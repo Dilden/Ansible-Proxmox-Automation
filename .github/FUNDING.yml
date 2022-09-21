@@ -1,0 +1,13 @@
+# These are supported funding model platforms
+
+github: [Dilden]
+patreon: # Replace with a single Patreon username
+open_collective: # Replace with a single Open Collective username
+ko_fi: # Replace with a single Ko-fi username
+tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
+community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry
+liberapay: # Replace with a single Liberapay username
+issuehunt: # Replace with a single IssueHunt username
+otechie: # Replace with a single Otechie username
+lfx_crowdfunding: # Replace with a single LFX Crowdfunding project-name e.g., cloud-foundry
+custom: ['https://buy.stripe.com/bIY7sX4IP2tjcVydQQ', 'https://buy.stripe.com/fZe8x13ELec15t67sv', 'https://buy.stripe.com/14k7sXa39c3T9Jm28a', 'https://buy.stripe.com/14k4gL1wD9VLg7K6os']
