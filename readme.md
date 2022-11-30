@@ -45,3 +45,8 @@ Some useful ad-hoc commands might look like:
 `ansible closingtags -a "find /var/www/html/. -type f -mtime -15"` to find any files modified in the past 15 days
 
 or `ansible closingtags -a "grep -nr 'atob' /var/www/html/."` to search all files for 'atob'.
+
+## Sponsorship
+If you've found this project useful in any way, consider subscribing.
+
+<iframe src="https://github.com/sponsors/Dilden/card" title="Sponsor Dilden" height="225" width="600" style="border: 0;"></iframe>
