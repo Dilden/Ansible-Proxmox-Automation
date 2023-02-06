@@ -47,6 +47,4 @@ Some useful ad-hoc commands might look like:
 or `ansible closingtags -a "grep -nr 'atob' /var/www/html/."` to search all files for 'atob'.
 
 ## Sponsorship
-If you've found this project useful in any way, consider subscribing.
-
-<iframe src="https://github.com/sponsors/Dilden/card" title="Sponsor Dilden" height="225" width="600" style="border: 0;"></iframe>
+If you've found this project useful in any way, consider [sponsoring this project](https://github.com/sponsors/Dilden/).
