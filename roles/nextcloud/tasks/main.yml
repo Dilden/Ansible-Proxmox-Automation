@@ -1,0 +1,50 @@
+
+#- name: Download release file
+#  ansible.builtin.get_url:
+#    url: release
+#    dest: /var/www/
+
+#- name: Unpack remote release file to /var/www/nextcloud/
+#  unarchive:
+#    remote_src: true
+#    src: '{{ release }}'
+#    dest: /var/www/
+
+# - name: Stop webserver
+#   service:
+#     name: nginx
+#     state: stopped
+
+- name: Remove cron
+  cron:
+    name: cloudcron
+    user: www-data
+    state: absent
+
+- name: Move old install
+
+- name: Move new install
+
+- name: Copy config from old install
+
+- name: Copy data symlink from old install
+
+- name: Copy old apps from old install to new
+
+- name: Fix permissions
+
+- name: Start webserver
+  service:
+    name: nginx
+    state: started
+
+- name: Run nextcloud upgrade CLI
+
+- name: Add cron
+  cron:
+    name: cloudcron
+    user: www-data
+    job: 'php -f /var/www/cloud.closingtags.com/cron.php'
+    minute: '*/5'
+    state: present
+    # */5  *  *  *  * php -f /var/www/cloud.closingtags.com/cron.php
