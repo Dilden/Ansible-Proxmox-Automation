@@ -1,19 +1,13 @@
+- name: Unpack remote release file to /var/www/nextcloud/
+  unarchive:
+    remote_src: true
+    src: '{{ release }}'
+    dest: /var/www/
 
-#- name: Download release file
-#  ansible.builtin.get_url:
-#    url: release
-#    dest: /var/www/
-
-#- name: Unpack remote release file to /var/www/nextcloud/
-#  unarchive:
-#    remote_src: true
-#    src: '{{ release }}'
-#    dest: /var/www/
-
-# - name: Stop webserver
-#   service:
-#     name: nginx
-#     state: stopped
+- name: Stop webserver
+  service:
+   name: nginx
+   state: stopped
 
 - name: Remove cron
   cron:
@@ -22,16 +16,51 @@
     state: absent
 
 - name: Move old install
+  copy: 
+    src: /var/www/cloud.closingtags.com/
+    dest: /var/www/cloud.closingtags.com-old/
+    remote_src: true
+    follow: true
 
 - name: Move new install
+  copy:
+    src: /var/www/nextcloud/
+    dest: /var/www/cloud.closingtags.com/
+    remote_src: true
 
-- name: Copy config from old install
+- name: Copy config from old install to new
+  copy: 
+    src: /var/www/cloud.closingtags.com-old/config/config.php
+    dest: /var/www/cloud.closingtags.com/config/config.php
+    remote_src: true
 
-- name: Copy data symlink from old install
+- name: Create symlink to data
+  file:
+    src: /mnt/Hello_NAS_D/cloud/data/
+    dest: /var/www/cloud.closingtags.com/data
+    state: link
+    owner: www-data
+    group: www-data
 
-- name: Copy old apps from old install to new
+- name: Copy apps from old install to new
+  copy:
+    src: /var/www/cloud.closingtags.com-old/apps/
+    dest: /var/www/cloud.closingtags.com/apps/
+    remote_src: true
 
-- name: Fix permissions
+- name: Fix ownership
+  file: 
+    path: /var/www/cloud.closingtags.com
+    owner: www-data
+    group: www-data
+    recurse: yes
+    state: directory
+
+- name: Fix directory permissions
+  command: find cloud.closingtags.com/ -type d -exec chmod 750 {} \;
+
+- name: Fix file permissions
+  command: find cloud.closingtags.com/ -type f -exec chmod 640 {} \;
 
 - name: Start webserver
   service:
@@ -39,6 +68,7 @@
     state: started
 
 - name: Run nextcloud upgrade CLI
+  command: sudo -u www-data php /var/www/cloud.closingtags.com/occ upgrade
 
 - name: Add cron
   cron:
