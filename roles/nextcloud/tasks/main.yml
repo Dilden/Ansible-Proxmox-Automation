@@ -22,6 +22,11 @@
     remote_src: true
     follow: true
 
+- name: Remove old install folder
+  file:
+    path: /var/www/cloud.closingtags.com/
+    state: absent
+
 - name: Move new install
   copy:
     src: /var/www/nextcloud/
@@ -33,14 +38,17 @@
     src: /var/www/cloud.closingtags.com-old/config/config.php
     dest: /var/www/cloud.closingtags.com/config/config.php
     remote_src: true
-
-- name: Create symlink to data
-  file:
-    src: /mnt/Hello_NAS_D/cloud/data/
-    dest: /var/www/cloud.closingtags.com/data
-    state: link
-    owner: www-data
-    group: www-data
+#
+#- name: Create symlink to data directory
+#  command: ln -s /mnt/Hello_NAS_D/cloud/data /var/www/cloud.closingtags.com/data
+    #file:
+    #  src: /mnt/Hello_NAS_D/cloud/data
+    #  dest: /var/www/data
+    #    #src: /mnt/Hello_NAS_D/cloud/data/
+    #    #dest: /var/www/cloud.closingtags.com/data
+    #  state: link
+    #  owner: www-data
+    #  group: www-data
 
 - name: Copy apps from old install to new
   copy:
@@ -50,17 +58,18 @@
 
 - name: Fix ownership
   file: 
-    path: /var/www/cloud.closingtags.com
+    path: /var/www/cloud.closingtags.com/
     owner: www-data
     group: www-data
     recurse: yes
     state: directory
+    follow: false
 
 - name: Fix directory permissions
-  command: find cloud.closingtags.com/ -type d -exec chmod 750 {} \;
+  command: find /var/www/cloud.closingtags.com/ -type d -exec chmod 750 {} \;
 
 - name: Fix file permissions
-  command: find cloud.closingtags.com/ -type f -exec chmod 640 {} \;
+  command: find /var/www/cloud.closingtags.com/ -type f -exec chmod 640 {} \;
 
 - name: Start webserver
   service:
