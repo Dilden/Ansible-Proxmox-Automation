@@ -38,17 +38,6 @@
     src: /var/www/cloud.closingtags.com-old/config/config.php
     dest: /var/www/cloud.closingtags.com/config/config.php
     remote_src: true
-#
-#- name: Create symlink to data directory
-#  command: ln -s /mnt/Hello_NAS_D/cloud/data /var/www/cloud.closingtags.com/data
-    #file:
-    #  src: /mnt/Hello_NAS_D/cloud/data
-    #  dest: /var/www/data
-    #    #src: /mnt/Hello_NAS_D/cloud/data/
-    #    #dest: /var/www/cloud.closingtags.com/data
-    #  state: link
-    #  owner: www-data
-    #  group: www-data
 
 - name: Copy apps from old install to new
   copy:
