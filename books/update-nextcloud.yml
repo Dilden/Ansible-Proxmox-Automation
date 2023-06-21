@@ -1,0 +1,20 @@
+---
+- name: Back up container
+  hosts: host
+  remote_user: root
+
+  tasks:
+      - name: Backing up cloud container
+        command:
+            cmd: vzdump 105 --maxfiles 5 --compress gzip
+
+- name: Upgrade Nextcloud
+  hosts: cloud
+  remote_user: root
+
+  vars_prompt:
+    - name: release
+      prompt: Enter URL to next release
+      private: false
+  roles:
+    - nextcloud

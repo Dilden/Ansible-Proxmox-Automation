@@ -1,0 +1,78 @@
+- name: Unpack remote release file to /var/www/nextcloud/
+  unarchive:
+    remote_src: true
+    src: '{{ release }}'
+    dest: /var/www/
+
+- name: Stop webserver
+  service:
+   name: nginx
+   state: stopped
+
+- name: Remove cron
+  cron:
+    name: cloudcron
+    user: www-data
+    state: absent
+
+- name: Move old install
+  copy: 
+    src: /var/www/cloud.closingtags.com/
+    dest: /var/www/cloud.closingtags.com-old/
+    remote_src: true
+    follow: true
+
+- name: Remove old install folder
+  file:
+    path: /var/www/cloud.closingtags.com/
+    state: absent
+
+- name: Move new install
+  copy:
+    src: /var/www/nextcloud/
+    dest: /var/www/cloud.closingtags.com/
+    remote_src: true
+
+- name: Copy config from old install to new
+  copy: 
+    src: /var/www/cloud.closingtags.com-old/config/config.php
+    dest: /var/www/cloud.closingtags.com/config/config.php
+    remote_src: true
+
+- name: Copy apps from old install to new
+  copy:
+    src: /var/www/cloud.closingtags.com-old/apps/
+    dest: /var/www/cloud.closingtags.com/apps/
+    remote_src: true
+
+- name: Fix ownership
+  file: 
+    path: /var/www/cloud.closingtags.com/
+    owner: www-data
+    group: www-data
+    recurse: yes
+    state: directory
+    follow: false
+
+- name: Fix directory permissions
+  command: find /var/www/cloud.closingtags.com/ -type d -exec chmod 750 {} \;
+
+- name: Fix file permissions
+  command: find /var/www/cloud.closingtags.com/ -type f -exec chmod 640 {} \;
+
+- name: Start webserver
+  service:
+    name: nginx
+    state: started
+
+- name: Run nextcloud upgrade CLI
+  command: sudo -u www-data php /var/www/cloud.closingtags.com/occ upgrade
+
+- name: Add cron
+  cron:
+    name: cloudcron
+    user: www-data
+    job: 'php -f /var/www/cloud.closingtags.com/cron.php'
+    minute: '*/5'
+    state: present
+    # */5  *  *  *  * php -f /var/www/cloud.closingtags.com/cron.php
