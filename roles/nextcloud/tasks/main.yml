@@ -15,6 +15,11 @@
     user: www-data
     state: absent
 
+- name: Remove old backed up install folder
+  file:
+    path: /var/www/cloud.closingtags.com-old/
+    state: absent
+
 - name: Move old install
   copy: 
     src: /var/www/cloud.closingtags.com/
