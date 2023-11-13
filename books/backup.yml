@@ -10,10 +10,10 @@
   tasks:
       - name: Backup all containers.
         command:
-            cmd: vzdump --all --maxfiles 5 --compress gzip
+            cmd: vzdump --all --maxfiles 5 --compress zstd --mode stop
         when: ctid == ""
 
       - name: Backup specified container.
         command:
-            cmd: vzdump {{ ctid }} --maxfiles 5 --compress gzip
+            cmd: vzdump {{ ctid }} --maxfiles 5 --compress zstd --mode stop
         when: ctid != ""

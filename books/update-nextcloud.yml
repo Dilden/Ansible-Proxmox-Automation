@@ -6,7 +6,7 @@
   tasks:
       - name: Backing up cloud container
         command:
-            cmd: vzdump 105 --maxfiles 5 --compress gzip
+            cmd: vzdump 105 --maxfiles 5 --compress zstd --mode stop
 
 - name: Upgrade Nextcloud
   hosts: cloud
