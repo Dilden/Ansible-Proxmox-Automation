@@ -1,3 +1,8 @@
+- name: Remove previous temp folders
+  file:
+    path: /var/www/nextcloud/
+    state: absent
+
 - name: Unpack remote release file to /var/www/nextcloud/
   unarchive:
     remote_src: true
