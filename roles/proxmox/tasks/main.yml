@@ -4,9 +4,9 @@
     proxmox_default_behavior: 'no_defaults'
     vmid: '{{ item.value.vmid | default([])}}'
     api_user: "{{ api_user }}"
-    api_password: "{{ api_password }}"
-    # api_token_id: "{{ api_token_id }}"
-    # api_token_secret: "{{ api_token_secret }}" 
+    # api_password: "{{ api_password }}"
+    api_token_id: "{{ api_token_id }}"
+    api_token_secret: "{{ api_token_secret }}" 
     api_host: "{{ api_host }}"
     hostname: '{{ item.key }}'
     node: '{{ item.value.node | default(defaults.node) }}'
@@ -16,7 +16,7 @@
     cpus: '{{ item.value.cpu | default(defaults.cpu) }}'
     memory: '{{ item.value.memory | default(defaults.memory.ct) }}'
     swap: '{{ item.value.swap | default([]) }}'
-    disk: '{{ item.value.disk | default(defaults.disk) }}'
+    # disk: '{{ item.value.disk | default(defaults.disk) }}'
     #mounts: '{{ item.value.mounts | default([]) }}'
     netif: '{{ item.value.netif | default([]) }}'
     storage: '{{ item.value.storage | default(defaults.storage.ct) }}'
@@ -39,7 +39,9 @@
   tags: proxmox, create, deploy
   proxmox:
     api_user: "{{ api_user }}"
-    api_password: "{{ api_password }}"
+    # api_password: "{{ api_password }}"
+    api_token_id: "{{ api_token_id }}"
+    api_token_secret: "{{ api_token_secret }}" 
     api_host: "{{ api_host }}"
     node: '{{ item.value.node | default(defaults.node) }}'
     hostname: "{{ item.item.key }}"
