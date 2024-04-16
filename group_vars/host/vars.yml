@@ -2,6 +2,8 @@
 # proxmox and proxmox_kvm options
 api_user: 'root@pam'
 api_password: '{{ vault_api_password }}'
+api_token_id: '{{ vault_api_token_id }}'
+api_token_secret: '{{ vault_api_token_secret }}'
 api_host: 'localhost'
 defaults:
   cores: '1'
@@ -88,9 +90,20 @@ cts:
     disk: '20'
     storage: 'local-zfs'
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.71/24,bridge=vmbr0,firewall=1"}'
-    ostemplate: 'local:vztmpl/ubuntu-18.04-standard_18.04.1-1_amd64.tar.gz'
+    # ostemplate: 'local:vztmpl/ubuntu-18.04-standard_18.04.1-1_amd64.tar.gz'
     #mounts: '{"mp0":"/mnt/shared,mp=/media/mount"}'
     password: "{{ vault_105 }}"
+
+  log:
+    vmid: '106'
+    node: 'pve'
+    type: 'ubuntu'
+    memory: '512'
+    swap: '512'
+    cores: '1'
+    storage: 'local-zfs'
+    netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.72/24,bridge=vmbr0,firewall=1"}'
+    password: "{{ vault_106 }}"
 #vms:
 #  test_vm:
 #    name: 'test_vm'

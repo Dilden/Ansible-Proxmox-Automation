@@ -7,12 +7,13 @@
           - build-essential
 
   tasks:
+   - name: disable enterprise repos
+     apt_repository:
+       repo: 'deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise'
+       state: absent
    - name: switch to community repos
      apt_repository:
-       repo: 'deb https://enterprise.proxmox.com/debian/pve bullseye pve-enterprise'
-       state: absent
-     apt_repository:
-       repo: 'deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription'
+       repo: 'deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription'
        state: present
    - name: Update all packages to the latest version
      apt:
@@ -25,10 +26,11 @@
      pip:
        name: pip
        state: latest
-   - name: Install dependencies
+   - name: Install virtualenv
      pip:
        name: virtualenv
        state: latest
+   - name: Install proxmoxer
      pip:
        name: proxmoxer
        state: latest

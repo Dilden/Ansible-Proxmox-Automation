@@ -1,9 +1,12 @@
 - name: create containers
   tags: proxmox, create, deploy
   proxmox:
+    proxmox_default_behavior: 'no_defaults'
     vmid: '{{ item.value.vmid | default([])}}'
     api_user: "{{ api_user }}"
     api_password: "{{ api_password }}"
+    # api_token_id: "{{ api_token_id }}"
+    # api_token_secret: "{{ api_token_secret }}" 
     api_host: "{{ api_host }}"
     hostname: '{{ item.key }}'
     node: '{{ item.value.node | default(defaults.node) }}'
