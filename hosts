@@ -28,6 +28,7 @@ nodejs ansible_host=192.168.1.69 ansible_user=root
 vpn ansible_host=192.168.1.70 ansible_user=root
 cloud ansible_host=192.168.1.71 ansible_user=root
 pihole ansible_host=192.168.1.65 ansible_user=root
+log ansible_host=192.168.1.72 ansible_user=root
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
