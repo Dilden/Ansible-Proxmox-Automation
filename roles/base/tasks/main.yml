@@ -2,10 +2,20 @@
   tags: upgrade
   apt:
     update_cache: yes
-    upgrade: dist
-    autoclean: yes
-    autoremove: yes
-  register:
-    changes
-- debug:
-    var: changes.stdout_lines
+    # upgrade: dist
+    # autoclean: yes
+    # autoremove: yes
+
+- name: Install required packages
+  apt:
+    name:
+      - gnupg2
+      - curl
+      - software-properties-common
+      - apt-transport-https
+      - wget
+      - python3-debian
+      - python-apt
+      - python3-apt
+      - gpg
+    state: present
