@@ -1,0 +1,6 @@
+
+- name: Install Promtail
+  apt:
+    name: promtail
+    state: latest
+    update_cache: yes
