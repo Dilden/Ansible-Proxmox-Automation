@@ -46,5 +46,7 @@ Some useful ad-hoc commands might look like:
 
 or `ansible closingtags -a "grep -nr 'atob' /var/www/html/."` to search all files for 'atob'.
 
+To execute a role on a specific target, use `ansible localhost --module-name include_role --args name=<role_name>`
+
 ## Sponsorship
 If you've found this project useful in any way, consider [sponsoring this project](https://github.com/sponsors/Dilden/).

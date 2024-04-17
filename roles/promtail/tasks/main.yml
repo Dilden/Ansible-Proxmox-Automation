@@ -1,6 +1,19 @@
+- name: Install the gpg key for Grafana + Grafana repos
+  shell: wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+- name: Add Grafana stable repos
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+    state: present
+    update_cache: yes
 
 - name: Install Promtail
   apt:
     name: promtail
     state: latest
     update_cache: yes
+
+- name: Add config
+  template:
+    src: files/config.yml
+    dest: /etc/promtail/config.yml
