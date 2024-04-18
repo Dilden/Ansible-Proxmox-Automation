@@ -1,0 +1,6 @@
+---
+- hosts: log
+  remote_user: root
+  roles:
+    - base
+    - grafana

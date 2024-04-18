@@ -15,7 +15,6 @@
       - apt-transport-https
       - wget
       - python3-debian
-      - python-apt
       - python3-apt
       - gpg
     state: present
