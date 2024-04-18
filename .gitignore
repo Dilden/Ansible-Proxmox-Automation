@@ -1,3 +1,4 @@
 *.sw*
 **/creds.yml
 *.retry
+roles/promtail/files/config.yml
