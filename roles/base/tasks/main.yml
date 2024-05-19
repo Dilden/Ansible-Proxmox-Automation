@@ -2,7 +2,7 @@
   tags: upgrade
   apt:
     update_cache: yes
-    # upgrade: dist
+    upgrade: dist
     # autoclean: yes
     # autoremove: yes
 
