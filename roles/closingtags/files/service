@@ -1,0 +1,14 @@
+[Unit]
+Description=nodejs server
+
+[Service]
+ExecStart=/usr/bin/node /var/www/html/index.js
+Restart=on-failure
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nodejs-example
+Environment=NODE_ENV=production PORT=80
+
+[Install]
+WantedBy=multi-user.target
