@@ -1,4 +1,28 @@
 ---
 - hosts: nodejs
+  tasks:
+  - name: Add system user
+    user:
+      name: ctgs
+      groups: sudo
+      append: yes
+      shell: /bin/bash
+      create_home: yes
+
+  - name: Install nginx
+    tags: install, nginx
+    apt:
+      name: nginx
+      state: latest
+
+  - name: Start nginx
+    tags: install, nginx
+    service:
+      name: nginx
+      state: started
+
   roles:
-    - helth
+    - ddns
+    - nodejs
+    - closingtags
+    # - certbot
