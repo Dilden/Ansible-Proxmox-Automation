@@ -2,3 +2,4 @@
 **/creds.yml
 *.retry
 roles/promtail/files/config.yml
+roles/ddns/files/ddns.sh

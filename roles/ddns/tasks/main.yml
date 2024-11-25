@@ -1,0 +1,17 @@
+
+- name: Add ddns bash script
+  tags: ddns, bash
+  copy:
+    src: ddns.sh # https://gist.github.com/Dilden/cbe4787b5e776eb13989df1ba8b54612
+    dest: /home/ctgs/ddns.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Setup cronjob to update DNS
+  cron:
+    name: ddns cron
+    user: www-data
+    job: '/home/ctgs/ddns.sh'
+    minute: '*/20'
+    state: present
