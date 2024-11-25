@@ -50,7 +50,7 @@ cts:
     swap: '512'
     cores: '1'
     storage: 'local-zfs'
-    disk: '80'
+    disk: '10'
     onboot: false
     netif: '{"net0":"name=eth0,gw=192.168.1.1,ip=192.168.1.69/24,bridge=vmbr0,firewall=1"}'
     password: "{{ vault_102 }}"
