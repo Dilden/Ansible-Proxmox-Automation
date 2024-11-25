@@ -10,3 +10,13 @@
       private: no
   roles:
    - nginx
+  tasks:
+    - name: Setup subdomains
+      include_tasks: roles/nginx/tasks/subdomains.yml
+
+    - name: Restart nginx
+      tags: subdomain
+      service:
+        name: nginx
+        state: restarted
+

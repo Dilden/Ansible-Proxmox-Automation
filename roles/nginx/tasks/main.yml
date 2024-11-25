@@ -10,52 +10,6 @@
     name: nginx
     state: started
 
-- name: Add site config file for new domain
-  tags: subdomain
-  copy:
-    src: site
-    dest: /etc/nginx/sites-available/{{ host_name }}
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Update site config server_name
-  tags: subdomain
-  lineinfile:
-    path: /etc/nginx/sites-available/{{ host_name }}
-    regexp: '(?!\s)server_name'
-    line: '          server_name {{ host_name }}.closingtags.com;'
-  register: domain_updated
-
-- name: Update site config ip address
-  tags: subdomain
-  lineinfile:
-    path: /etc/nginx/sites-available/{{ host_name }}
-    regexp: '(?!\s)proxy_pass'
-    line: '                  proxy_pass http://{{ ip }};'
-  register: ip_updated
-
-- name: Check if IP is present in hosts file
-  tags: subdomain
-  shell: grep -c "{{ ip }}" /etc/hosts || true
-  register: checkhosts
-  changed_when: no
-
-- name: Add IP + subdomain to /etc/hosts
-  tags: sudomain
-  lineinfile:
-    path: /etc/hosts
-    line: '{{ ip }} {{ host_name}}.closingtags.com'
-  when: checkhosts.stdout == '0'
-  register: etc_updated
-
-- name: Enable new site
-  tags: subdomain
-  file:
-    src: /etc/nginx/sites-available/{{ host_name }}
-    dest: /etc/nginx/sites-enabled/{{ host_name }}
-    state: link
-  when: domain_updated.changed or ip_updated.changed
 
 - name: Restart nginx
   tags: subdomain
