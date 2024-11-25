@@ -3,7 +3,7 @@
   tags: ddns, bash
   copy:
     src: ddns.sh # https://gist.github.com/Dilden/cbe4787b5e776eb13989df1ba8b54612
-    dest: /home/ctgs/ddns.sh
+    dest: /root/ddns.sh
     owner: root
     group: root
     mode: 0644
@@ -12,6 +12,6 @@
   cron:
     name: ddns cron
     user: www-data
-    job: '/home/ctgs/ddns.sh'
+    job: '/root/ddns.sh'
     minute: '*/20'
     state: present
