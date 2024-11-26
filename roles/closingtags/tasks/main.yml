@@ -1,0 +1,59 @@
+- name: Build closingtags site locally
+  tags: closingtags, build, deploy
+  shell: npm run build
+  args:
+    chdir: ~/Dev/projects/closingtags/
+  delegate_to: 127.0.0.1
+
+- name: Copy build to server
+  tags: closingtags, build, deploy
+  copy:
+    src: ~/Dev/projects/closingtags/build/
+    dest: /var/www/html/
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Copy package-lock.json to server
+  tags: closingtags, build, deploy
+  copy:
+    src: ~/Dev/projects/closingtags/package-lock.json
+    dest: /var/www/html/package-lock.json
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Copy package.json to server
+  tags: closingtags, build, deploy
+  copy:
+    src: ~/Dev/projects/closingtags/package.json
+    dest: /var/www/html/package.json
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Create service file
+  tags: closingtags, build, deploy
+  template:
+    src: files/service
+    dest: /etc/systemd/system/nodejs.service
+  register: service_conf
+
+- name: Reload systemd daemon
+  tags: closingtags, build, deploy, systemd
+  systemd:
+    daemon_reload: yes
+  when: service_conf.changed
+
+- name: Install dependencies from lockfile
+  tags: closingtags, build, deploy
+  shell: npm ci --ignore-scripts
+  args:
+    chdir: /var/www/html/
+
+- name: Restart NodeJS service
+  tags: closingtags, build, deploy
+  service:
+    name: nodejs
+    state: restarted
+    enabled: yes

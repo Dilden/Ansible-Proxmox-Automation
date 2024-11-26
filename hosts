@@ -15,6 +15,7 @@ pihole ansible_host=192.168.1.65 ansible_user=root
 
 [site]
 closingtags.com ansible_host=192.168.1.68 ansible_user=root
+nodejs ansible_host=192.168.1.69 ansible_user=root
 
 [web]
 closingtags.com ansible_host=192.168.1.68 ansible_user=root
