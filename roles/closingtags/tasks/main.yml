@@ -5,29 +5,69 @@
     chdir: ~/Dev/projects/closingtags/
   delegate_to: 127.0.0.1
 
+- name: Create temp dir
+  tags: closingtags, build, deploy
+  file:
+    path: /var/www/temp
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+
 - name: Copy build to server
   tags: closingtags, build, deploy
   copy:
     src: ~/Dev/projects/closingtags/build/
-    dest: /var/www/html/
-    owner: www-data
-    group: www-data
-    mode: 0644
+    dest: /var/www/temp/
 
 - name: Copy package-lock.json to server
   tags: closingtags, build, deploy
   copy:
     src: ~/Dev/projects/closingtags/package-lock.json
-    dest: /var/www/html/package-lock.json
-    owner: www-data
-    group: www-data
-    mode: 0644
+    dest: /var/www/temp/package-lock.json
 
 - name: Copy package.json to server
   tags: closingtags, build, deploy
   copy:
     src: ~/Dev/projects/closingtags/package.json
-    dest: /var/www/html/package.json
+    dest: /var/www/temp/package.json
+
+- name: Rename old html to backup
+  tags: closingtags, build, deploy
+  copy:
+    remote_src: true
+    src: /var/www/html
+    dest: /var/www/site-{{ now(utc=true, fmt='%Y-%m-%d_%H-%M')}}
+
+- name: Rename temp dir to web root dir (html)
+  tags: closingtags, build, deploy
+  copy:
+    remote_src: true
+    src: /var/www/temp
+    dest: /var/www/html
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Delete temp dir
+  file:
+    path: /var/www/temp
+    state: absent
+
+- name: Delete builds older than 30 days
+  tags: closingtags, build, deploy
+  shell: find /var/www/site-* -mtime +30 -exec rm {} \;
+
+- name: Install dependencies from lockfile
+  tags: closingtags, build, deploy
+  shell: npm ci --ignore-scripts
+  args:
+    chdir: /var/www/html/
+
+- name: Dependecy permissions
+  file:
+    path: /var/www/html
     owner: www-data
     group: www-data
     mode: 0644
@@ -45,11 +85,6 @@
     daemon_reload: yes
   when: service_conf.changed
 
-- name: Install dependencies from lockfile
-  tags: closingtags, build, deploy
-  shell: npm ci --ignore-scripts
-  args:
-    chdir: /var/www/html/
 
 - name: Restart NodeJS service
   tags: closingtags, build, deploy
