@@ -12,6 +12,6 @@
   roles:
     - ddns
     - nginx
-    - nodejs
+    # - nodejs
     - closingtags
     # - certbot
