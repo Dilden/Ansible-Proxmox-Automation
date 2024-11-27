@@ -40,12 +40,18 @@
     src: /var/www/html
     dest: /var/www/site-{{ now(utc=true, fmt='%Y-%m-%d_%H-%M')}}
 
+- name: Delete /var/www/html
+  tags: closingtags, build, deploy
+  file:
+    path: /var/www/html
+    state: absent
+
 - name: Rename temp dir to web root dir (html)
   tags: closingtags, build, deploy
   copy:
     remote_src: true
-    src: /var/www/temp
-    dest: /var/www/html
+    src: /var/www/temp/
+    dest: /var/www/html/
     owner: www-data
     group: www-data
     mode: 0644

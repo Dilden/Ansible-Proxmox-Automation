@@ -9,7 +9,7 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=nodejs
 Environment=NODE_ENV=production PORT=5173
-EnvironmentFile=/var/www/html/.env
+EnvironmentFile=/var/www/.env
 
 [Install]
 WantedBy=multi-user.target
