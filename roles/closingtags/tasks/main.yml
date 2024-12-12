@@ -15,11 +15,12 @@
     mode: 0644
 
 
-- name: Copy build to server
+- name: Sync build dir to server
   tags: closingtags, build, deploy
-  copy:
+  ansible.posix.synchronize:
     src: ~/Dev/projects/closingtags/build/
     dest: /var/www/temp/
+    recursive: true
 
 - name: Copy package-lock.json to server
   tags: closingtags, build, deploy
