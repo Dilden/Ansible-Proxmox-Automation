@@ -6,7 +6,7 @@
     dest: /root/ddns.sh
     owner: root
     group: root
-    mode: 0644
+    mode: 0744
 
 - name: Setup cronjob to update DNS
   cron:
