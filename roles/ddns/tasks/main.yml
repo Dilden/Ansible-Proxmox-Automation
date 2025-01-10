@@ -11,7 +11,7 @@
 - name: Setup cronjob to update DNS
   cron:
     name: ddns cron
-    user: www-data
+    user: root
     job: '/root/ddns.sh'
     minute: '*/20'
     state: present
