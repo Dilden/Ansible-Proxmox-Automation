@@ -22,6 +22,12 @@
     dest: /var/www/temp/
     recursive: true
 
+- name: Copy .env to server
+  tags: closingtags, build, deploy
+  copy:
+    src: ~/Dev/projects/closingtags/.env
+    dest: /var/www/.env
+
 - name: Copy package-lock.json to server
   tags: closingtags, build, deploy
   copy:
