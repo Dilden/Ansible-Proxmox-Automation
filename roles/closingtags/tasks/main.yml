@@ -1,3 +1,11 @@
+
+- name: Ensure tests pass first
+  tags: closingtags, build, deploy
+  shell: npm run test
+  args:
+    chdir: ~/Dev/projects/closingtags/
+  delegate_to: 127.0.0.1
+
 - name: Build closingtags site locally
   tags: closingtags, build, deploy
   shell: npm run build
