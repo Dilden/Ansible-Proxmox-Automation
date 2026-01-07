@@ -6,16 +6,29 @@
     update_cache: yes
     state: present
 
-- name: Install the gpg key for nodejs LTS
-  apt_key:
-    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+- name: Install curl
+  tags: nodejs, install, setup
+  apt:
+    name: curl
+    update_cache: yes
     state: present
 
-- name: Install the nodejs LTS repos
+- name: Install ca-certs
+  tags: nodejs, install, setup
+  apt:
+    name: ca-certificates
+    update_cache: yes
+    state: present
+
+- name: Install the gpg key for nodejs LTS
+  shell: curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+- name: Add Nodesource repos
   apt_repository:
-    repo: "deb https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x nodistro main"
     state: present
     update_cache: yes
+    filename: nodesource
 
 - name: Install NodeJS
   tags: nodesjs, install
