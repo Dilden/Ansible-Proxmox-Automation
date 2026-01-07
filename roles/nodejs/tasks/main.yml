@@ -3,25 +3,25 @@
   tags: nodejs, install, setup
   apt:
     name: gnupg
-    update_cache: yes
-    state: present
-
-- name: Install curl
-  tags: nodejs, install, setup
-  apt:
-    name: curl
-    update_cache: yes
     state: present
 
 - name: Install ca-certs
   tags: nodejs, install, setup
   apt:
     name: ca-certificates
-    update_cache: yes
     state: present
 
-- name: Install the gpg key for nodejs LTS
-  shell: curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    ## May need to dearmor this?
+    ## see this comment on how: https://stackoverflow.com/a/73805885
+
+    #
+- name: Install nodesource gpg keys
+  ansible.builtin.get_url:
+    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+    dest: /etc/apt/keyrings/nodesource.gpg
+
+    # - name: Install the gpg key for nodejs LTS
+#   shell: curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
 - name: Add Nodesource repos
   apt_repository:
