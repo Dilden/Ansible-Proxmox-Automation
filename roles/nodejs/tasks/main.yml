@@ -20,7 +20,7 @@
     url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
     dest: /etc/apt/keyrings/nodesource.gpg
 
-    # - name: Install the gpg key for nodejs LTS
+# - name: Install the gpg key for nodejs LTS
 #   shell: curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
 - name: Add Nodesource repos
