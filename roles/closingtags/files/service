@@ -1,15 +1,32 @@
 [Unit]
 Description=nodejs server
+After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /var/www/current/index.js
+Type=simple
+ExecStart=/usr/bin/node /var/www/current
 Restart=on-failure
-# Output to syslog
-StandardOutput=syslog
-StandardError=syslog
+User=ctgs
+Group=ctgs
+UID=1000
+GID=1000
+
+# Journal
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=nodejs
 Environment=NODE_ENV=production PORT=5173
 EnvironmentFile=/var/www/.env
+
+# Security
+ProtectSystem=strict
+NoNewPrivileges=true
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelModules=true
+ExecPaths=/var/www/current /usr/bin
+ReadWritePaths=/var/www/current /var/log/
+
 
 [Install]
 WantedBy=multi-user.target
