@@ -12,10 +12,14 @@
     chdir: ~/Dev/projects/closingtags/
   delegate_to: 127.0.0.1
 
-- name: Create temp dir
+- name: Get build name
+  command: echo "site-{{ now(utc=true,fmt='%Y-%m-%d_%H-%M') }}"
+  register: build_name
+
+- name: Create build dir
   tags: closingtags, build, deploy
   file:
-    path: /var/www/temp
+    path: /var/www/{{ build_name.stdout }}
     state: directory
     owner: www-data
     group: www-data
@@ -25,8 +29,19 @@
   tags: closingtags, build, deploy
   ansible.posix.synchronize:
     src: ~/Dev/projects/closingtags/build/
-    dest: /var/www/temp/
+    dest: /var/www/{{ build_name.stdout }}/
     recursive: true
+
+
+- name: Set permissions on build
+  tags: closingtags, build, deploy
+  file:
+    state: directory
+    dest: /var/www/{{ build_name.stdout }}/
+    recurse: true
+    owner: www-data
+    group: www-data
+    mode: 0644
 
 - name: Copy .env to server
   tags: closingtags, build, deploy
@@ -38,33 +53,16 @@
   tags: closingtags, build, deploy
   copy:
     src: ~/Dev/projects/closingtags/package-lock.json
-    dest: /var/www/temp/package-lock.json
+    dest: /var/www/{{ build_name.stdout }}/package-lock.json
+    owner: www-data
+    group: www-data
+    mode: 0644
 
 - name: Copy package.json to server
   tags: closingtags, build, deploy
   copy:
     src: ~/Dev/projects/closingtags/package.json
-    dest: /var/www/temp/package.json
-
-- name: Rename old html to backup
-  tags: closingtags, build, deploy
-  copy:
-    remote_src: true
-    src: /var/www/html
-    dest: /var/www/site-{{ now(utc=true, fmt='%Y-%m-%d_%H-%M')}}
-
-- name: Delete /var/www/html
-  tags: closingtags, build, deploy
-  file:
-    path: /var/www/html
-    state: absent
-
-- name: Rename temp dir to web root dir (html)
-  tags: closingtags, build, deploy
-  copy:
-    remote_src: true
-    src: /var/www/temp/
-    dest: /var/www/html/
+    dest: /var/www/{{ build_name.stdout }}/package.json
     owner: www-data
     group: www-data
     mode: 0644
@@ -73,14 +71,16 @@
   tags: closingtags, build, deploy
   shell: npm ci --ignore-scripts
   args:
-    chdir: /var/www/html/
+    chdir: /var/www/{{ build_name.stdout }}/
 
-- name: Dependecy permissions
+- name: Point server to latest build
   file:
-    path: /var/www/html
+    src: /var/www/{{ build_name.stdout }}/
+    dest: /var/www/current
+    state: link
+    follow: true
     owner: www-data
     group: www-data
-    mode: 0644
 
 - name: Create service file
   tags: closingtags, build, deploy
@@ -102,17 +102,25 @@
     state: restarted
     enabled: yes
 
-- name: Delete temp dir
+- name: Find other builds
+  tags: closingtags, build, deploy
+  find:
+    paths: /var/www
+    excludes: "{{ build_name.stdout }}"
+    use_regex: false
+    patterns: site-*
+    file_type: directory
+  register: otherBuilds
+
+- name: Change permissions on old builds
+  tags: closingtags, build, deploy
   file:
-    path: /var/www/temp
-    state: absent
+    path: "{{ item.path }}"
+    owner: root
+    group: root
+  with_items: "{{ otherBuilds.files }}"
 
-## old command that didn't work
-# - name: Delete builds older than 30 days
-#   tags: closingtags, build, deploy
-#   shell: find /var/www/site-* -mtime +30 -exec rm {} \;
-
-- name: find builds older than 30 days
+- name: Find builds older than 30 days
   tags: closingtags, build, deploy
   find:
     paths: /var/www
@@ -122,7 +130,7 @@
     file_type: directory
   register: filesOlderThan30D
 
-- name: delete old builds
+- name: Delete old builds
   tags: closingtags, build, deploy
   file:
     path: "{{ item.path }}"
