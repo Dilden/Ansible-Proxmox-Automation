@@ -1,15 +1,56 @@
 [Unit]
 Description=nodejs server
+After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /var/www/current/index.js
+Type=simple
+ExecStart=/usr/bin/node /var/www/current
 Restart=on-failure
-# Output to syslog
-StandardOutput=syslog
-StandardError=syslog
+User=ctgs
+Group=ctgs
+UID=1000
+GID=1000
+
+
+# Journal
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=nodejs
 Environment=NODE_ENV=production PORT=5173
 EnvironmentFile=/var/www/.env
+
+# Security
+NoNewPrivileges=true
+
+PrivateTmp=true
+PrivateDevices=yes
+
+LockPersonality=yes
+
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+ProtectClock=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectProc=invisible
+ProcSubset=pid
+
+NoExecPaths=/
+ExecPaths=/usr/bin/node
+ReadWritePaths=/var/www/current /var/log/
+InaccessiblePaths=/dev/shm
+
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_CHOWN CAP_DAC_OVERRIDE CAP_SETGID CAP_SETPCAP CAP_SETUID
+
+SystemCallFilter=~@clock @mount @reboot
+SystemCallFilter=~memfd_create
+SystemCallFilter=@system-service
+
+SecureBits=keep-caps-locked no-setuid-fixup-locked noroot-locked
+
 
 [Install]
 WantedBy=multi-user.target

@@ -21,8 +21,8 @@
   file:
     path: /var/www/{{ build_name.stdout }}
     state: directory
-    owner: www-data
-    group: www-data
+    owner: ctgs
+    group: ctgs
     mode: 0644
 
 - name: Sync build dir to server
@@ -32,15 +32,14 @@
     dest: /var/www/{{ build_name.stdout }}/
     recursive: true
 
-
 - name: Set permissions on build
   tags: closingtags, build, deploy
   file:
     state: directory
     dest: /var/www/{{ build_name.stdout }}/
     recurse: true
-    owner: www-data
-    group: www-data
+    owner: ctgs
+    group: ctgs
     mode: 0644
 
 - name: Copy .env to server
@@ -54,8 +53,8 @@
   copy:
     src: ~/Dev/projects/closingtags/package-lock.json
     dest: /var/www/{{ build_name.stdout }}/package-lock.json
-    owner: www-data
-    group: www-data
+    owner: ctgs
+    group: ctgs
     mode: 0644
 
 - name: Copy package.json to server
@@ -63,8 +62,8 @@
   copy:
     src: ~/Dev/projects/closingtags/package.json
     dest: /var/www/{{ build_name.stdout }}/package.json
-    owner: www-data
-    group: www-data
+    owner: ctgs
+    group: ctgs
     mode: 0644
 
 - name: Install dependencies from lockfile
@@ -73,14 +72,20 @@
   args:
     chdir: /var/www/{{ build_name.stdout }}/
 
+- name: Dependency permissions
+  file:
+    dest: /var/www/{{ build_name.stdout }}/
+    owner: ctgs
+    group: ctgs
+    mode: 0775
+    recurse: true
+
 - name: Point server to latest build
   file:
     src: /var/www/{{ build_name.stdout }}/
     dest: /var/www/current
     state: link
     follow: true
-    owner: www-data
-    group: www-data
 
 - name: Create service file
   tags: closingtags, build, deploy
