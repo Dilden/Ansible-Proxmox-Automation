@@ -10,3 +10,22 @@
     name: nginx
     state: started
 
+- name: Harden nginx service
+  tags: install, nginx
+  template:
+    src: files/service
+    dest: /etc/systemd/system/nginx.service.d/override.conf
+  register: service_conf
+
+- name: Reload systemd daemon
+  tags: install, nginx
+  systemd:
+    daemon_reload: yes
+  when: service_conf.changed
+
+- name: Restart nginx service
+  tags: nginx, install
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
