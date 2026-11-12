@@ -1,0 +1,21 @@
+plex:
+  vmid: "100"
+  password: "{{ vault_100 }}"
+closingtags:
+  vmid: "101"
+  password: "{{ vault_101 }}"
+nodejs:
+  vmid: "102"
+  ansible_user: ctgs
+  password: "{{ vault_102 }}"
+  ansible_become_user: ctgs
+  ansible_become_password: "{{ vault_102 }}"
+pihole:
+  vmid: "103"
+  password: "{{ vault_103 }}"
+vpn:
+  vmid: "104"
+  password: "{{ vault_104 }}"
+cloud:
+  vmid: "105"
+  password: "{{ vault_105 }}"

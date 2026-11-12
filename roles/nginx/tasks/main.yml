@@ -16,12 +16,14 @@
     src: files/service
     dest: /etc/systemd/system/nginx.service.d/override.conf
   register: service_conf
+  become: true
 
 - name: Reload systemd daemon
   tags: install, nginx
   systemd:
     daemon_reload: yes
   when: service_conf.changed
+  become: true
 
 - name: Restart nginx service
   tags: nginx, install
@@ -29,3 +31,4 @@
     name: nginx
     state: restarted
     enabled: yes
+  become: true

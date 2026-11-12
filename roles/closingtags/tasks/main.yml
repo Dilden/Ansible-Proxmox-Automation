@@ -4,6 +4,8 @@
   args:
     chdir: ~/Dev/projects/closingtags/
   delegate_to: 127.0.0.1
+  become: true
+  become_user: clownie
 
 - name: Build closingtags site locally
   tags: closingtags, build, deploy
@@ -11,6 +13,8 @@
   args:
     chdir: ~/Dev/projects/closingtags/
   delegate_to: 127.0.0.1
+  become: true
+  become_user: clownie
 
 - name: Get build name
   command: echo "site-{{ now(utc=true,fmt='%Y-%m-%d_%H-%M') }}"
@@ -23,14 +27,21 @@
     state: directory
     owner: ctgs
     group: ctgs
-    mode: 0644
+    mode: 0744
+  become: true
+
+# - name: Sync build dir to server
+#   tags: closingtags, build, deploy
+#   ansible.posix.synchronize:
+#     src: ~/Dev/projects/closingtags/build/
+#     dest: /var/www/{{ build_name.stdout }}/
+#     recursive: true
+#     mode: push
 
 - name: Sync build dir to server
   tags: closingtags, build, deploy
-  ansible.posix.synchronize:
-    src: ~/Dev/projects/closingtags/build/
-    dest: /var/www/{{ build_name.stdout }}/
-    recursive: true
+  shell: rsync -a ~/Dev/projects/closingtags/build/ {{ ansible_user }}@{{ ansible_host }}:/var/www/{{ build_name.stdout }}
+  delegate_to: 127.0.0.1
 
 - name: Set permissions on build
   tags: closingtags, build, deploy
@@ -40,7 +51,8 @@
     recurse: true
     owner: ctgs
     group: ctgs
-    mode: 0644
+    mode: 0744
+  become: true
 
 - name: Copy .env to server
   tags: closingtags, build, deploy
@@ -55,7 +67,7 @@
     dest: /var/www/{{ build_name.stdout }}/package-lock.json
     owner: ctgs
     group: ctgs
-    mode: 0644
+    mode: 0744
 
 - name: Copy package.json to server
   tags: closingtags, build, deploy
@@ -64,7 +76,7 @@
     dest: /var/www/{{ build_name.stdout }}/package.json
     owner: ctgs
     group: ctgs
-    mode: 0644
+    mode: 0744
 
 - name: Install dependencies from lockfile
   tags: closingtags, build, deploy
@@ -77,7 +89,7 @@
     dest: /var/www/{{ build_name.stdout }}/
     owner: ctgs
     group: ctgs
-    mode: 0775
+    mode: 0744
     recurse: true
 
 - name: Point server to latest build
@@ -85,7 +97,11 @@
     src: /var/www/{{ build_name.stdout }}/
     dest: /var/www/current
     state: link
+    owner: ctgs
+    group: ctgs
+    mode: 0744
     follow: true
+  become: true
 
 - name: Create service file
   tags: closingtags, build, deploy
@@ -106,6 +122,7 @@
     name: nodejs
     state: restarted
     enabled: yes
+  become: true
 
 - name: Find other builds
   tags: closingtags, build, deploy
@@ -123,7 +140,9 @@
     path: "{{ item.path }}"
     owner: root
     group: root
+    mode: 0400
   with_items: "{{ otherBuilds.files }}"
+  become: true
 
 - name: Find builds older than 30 days
   tags: closingtags, build, deploy
@@ -134,6 +153,7 @@
     patterns: site-*
     file_type: directory
   register: filesOlderThan30D
+  become: true
 
 - name: Delete old builds
   tags: closingtags, build, deploy
@@ -141,3 +161,4 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ filesOlderThan30D.files }}"
+  become: true
