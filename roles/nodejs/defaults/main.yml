@@ -1,3 +1,3 @@
 ---
 NODEJS_VERSION: "24"
-ansible_distribution_release: "focal"
+ansible_distribution_release: "noble"

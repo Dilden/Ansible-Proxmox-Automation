@@ -5,7 +5,7 @@
   tasks:
     - name: Add system user
       user:
-        name: ctgs
+        name: "{{ nodejs.ansible_user }}"
         groups: sudo
         append: yes
         shell: /bin/bash

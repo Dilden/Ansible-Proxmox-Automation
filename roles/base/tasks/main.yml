@@ -5,6 +5,7 @@
     upgrade: dist
     # autoclean: yes
     # autoremove: yes
+  become: true
 
 - name: Install required packages
   apt:
@@ -18,3 +19,4 @@
       - python3-apt
       - gpg
     state: present
+  become: true

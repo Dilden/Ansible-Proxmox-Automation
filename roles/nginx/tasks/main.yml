@@ -1,14 +1,38 @@
+- name: Add nginx repo
+  deb822_repository:
+    name: nginx
+    types: deb
+    uris: "https://nginx.org/packages/mainline/ubuntu"
+    suites: "noble"
+    components:
+      - nginx
+    signed_by: "https://nginx.org/keys/nginx_signing.key"
+    state: present
+  become: true
+
+- name: Prefer nginx repo
+  copy:
+    dest: "/etc/apt/preferences.d/99nginx"
+    content: |
+      Package: 
+        Pin: origin nginx.org
+        Pin: release o=nginx
+        Pin-Priority: 900
+  become: true
+
 - name: Install nginx
   tags: install, nginx
   apt:
     name: nginx
     state: latest
+  become: true
 
 - name: Start nginx
   tags: install, nginx
   service:
     name: nginx
     state: started
+  become: true
 
 - name: Harden nginx service
   tags: install, nginx

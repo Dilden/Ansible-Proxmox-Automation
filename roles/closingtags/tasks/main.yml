@@ -109,12 +109,14 @@
     src: files/service
     dest: /etc/systemd/system/nodejs.service
   register: service_conf
+  become: true
 
 - name: Reload systemd daemon
   tags: closingtags, build, deploy, systemd
   systemd:
     daemon_reload: yes
   when: service_conf.changed
+  become: true
 
 - name: Restart NodeJS service
   tags: closingtags, build, deploy
@@ -161,4 +163,3 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ filesOlderThan30D.files }}"
-  become: true

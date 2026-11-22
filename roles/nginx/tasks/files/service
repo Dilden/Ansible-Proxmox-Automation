@@ -16,7 +16,7 @@ NoExecPaths=/
 ExecPaths=/usr/sbin/nginx /usr/lib
 # Allow creation of PID file and writing to log files (access|error).log
 # Details: https://linux-audit.com/systemd/settings/units/readwritepaths/
-ReadWritePaths=/run /var/log/nginx
+ReadWritePaths=/run /var/log/nginx /var/lib/nginx
 
 # ===============================
 # Capabilities and system calls
