@@ -97,7 +97,7 @@ ProtectKernelTunables=yes
 ProtectProc=invisible
 # Most of the system paths will no longer be writable
 # Details: https://linux-audit.com/systemd/settings/units/protectsystem/
-ProtectSystem=strict
+ProtectSystem=full
 # Restricts information from /proc that not directly associated with process management and introspection
 # Details: https://linux-audit.com/systemd/settings/units/procsubset/
 ProcSubset=pid
