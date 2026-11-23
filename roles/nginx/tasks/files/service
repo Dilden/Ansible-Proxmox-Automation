@@ -16,7 +16,7 @@ NoExecPaths=/
 ExecPaths=/usr/sbin/nginx /usr/lib
 # Allow creation of PID file and writing to log files (access|error).log
 # Details: https://linux-audit.com/systemd/settings/units/readwritepaths/
-ReadWritePaths=/run /var/log/nginx
+ReadWritePaths=/run /var/log/nginx /var/lib/nginx
 
 # ===============================
 # Capabilities and system calls
@@ -97,7 +97,7 @@ ProtectKernelTunables=yes
 ProtectProc=invisible
 # Most of the system paths will no longer be writable
 # Details: https://linux-audit.com/systemd/settings/units/protectsystem/
-ProtectSystem=strict
+ProtectSystem=full
 # Restricts information from /proc that not directly associated with process management and introspection
 # Details: https://linux-audit.com/systemd/settings/units/procsubset/
 ProcSubset=pid

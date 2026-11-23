@@ -29,6 +29,7 @@
     state: present
     update_cache: yes
     filename: nodesource
+  become: yes
 
 - name: Install NodeJS
   tags: nodesjs, install
